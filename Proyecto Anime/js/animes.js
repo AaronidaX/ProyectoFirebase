@@ -1,13 +1,13 @@
 window.onload = inicializar;
 var refAnimes;
 var storageRef;
-var portadasRef;
 var imagen;
 const AGREGAR = "1";
 const EDITAR = "2";
 var modo = AGREGAR;
 var refAnimesAEditar;
 var comp;
+var url;
 
 
 function inicializar() {
@@ -17,13 +17,12 @@ function inicializar() {
   imagen = document.getElementById("imagen");
   imagen.addEventListener("change", subirImagen);
   storageRef = firebase.storage().ref();
-  portadasRef = firebase.database().ref().child("Portadas");
 
 
   mostrarAnimes();
 }
 
-function subirImagen() {
+function subirImagen(snapshot) {
   var imagenParaSubir = imagen.files[0];
 
   var uploadTask = storageRef.child('imagenes/' + imagenParaSubir.name).put(imagenParaSubir);
@@ -41,44 +40,16 @@ function subirImagen() {
       //Si se sube con exito
       alert("Se ha subido con exito")
       var downloadURL = uploadTask.snapshot.downloadURL;
-      crearNodo(imagenParaSubir.name, downloadURL);
+      url = downloadURL;
       document.getElementById("progreso").className = "hidden";
     });
 }
-
-function crearNodo(nombreImagen, downloadURL) {
-
-  if(modo == AGREGAR){
-      portadasRef.push(
-        {
-          nombre: nombreImagen,
-          Portada: downloadURL
-        }
-      );
-    } else {
-      portadasRef.update({
-        nombre: nombreImagen,
-        Portada: downloadURL
-      });
-      modo = AGREGAR;
-      //document.getElementById("activarcargar").style.display = "block";
-      //document.getElementById("activareditar").style.display = "none";
-      //document.getElementById("textoeditar").style.display = "none";
-    }
-  }
 
 function borrarAnime(event) {
   var clave = this.getAttribute("data-indentificador");
   var refAnimes = firebase.database().ref().child("Animes").child(clave);
   refAnimes.on("value", function(snapshot){
   refAnimes.remove();
-  });
-  var portadasRef = firebase.database().ref().child("Portadas").child(clave);
-  portadasRef.on("value", function(snapshot){
-  var imagenParaSubir = snapshot.val();
-  storageRef = firebase.storage().ref().child("imagenes/" + imagenParaSubir.name);
-  storageRef.delete();
-  portadasRef.remove();
   });
 }
 
@@ -88,7 +59,6 @@ function editarAnime(event) {
   refAnimesAEditar.once("value", function(snapshot){
     var datos = snapshot.val();
     var formulario = document.getElementById("formulario");
-    formulario.imagen.value = datos.Portada;
     formulario.anime.value = datos.Anime;
     formulario.autor.value = datos.Autor;
     formulario.description.value = datos.Descripcion;
@@ -103,6 +73,7 @@ function editarAnime(event) {
 }
 
 function enviarAnime(event) {
+  console.log(url);
   var comp = 0;
   var formulario = event.target;
   if(formulario.imagen.value == "") {
@@ -160,7 +131,7 @@ function enviarAnime(event) {
 
       refAnimes.push(
         {
-          Portada: formulario.imagen.value,
+          Portada: url,
           Anime: formulario.anime.value,
           Autor: formulario.autor.value,
           Descripcion: formulario.description.value,
@@ -172,7 +143,7 @@ function enviarAnime(event) {
       );
     } else {
       refAnimesAEditar.update({
-        Portada: formulario.imagen.value,
+        Portada: url,
         Anime: formulario.anime.value,
         Autor: formulario.autor.value,
         Descripcion: formulario.description.value,
