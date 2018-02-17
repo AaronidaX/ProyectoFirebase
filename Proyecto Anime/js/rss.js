@@ -25,8 +25,8 @@ function mostrarAnimes(snapshot) {
   documentoRSS += '<rss version="2.0">';
   documentoRSS += '<channel>';
   documentoRSS += '<title>rssanimes</title>';
-  documentoRSS += '<link>shonen.html</link>';
-  documentoRSS += '<description>Los mejores Shonen</description>';
+  documentoRSS += '<link>index.html</link>';
+  documentoRSS += '<description>Encuentra tus animes favoritos</description>';
   for (var key in datos){
     documentoRSS += '<item>';
     documentoRSS += '<title>' + datos[key].titulo + '</title>';
