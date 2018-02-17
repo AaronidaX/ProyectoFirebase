@@ -48,42 +48,11 @@ function subirImagen(snapshot) {
     });
 }
 
-function borrarAnime(event) {
-  var clave = this.getAttribute("data-indentificador");
-  var refAnimes = firebase.database().ref().child("Animes").child(clave);
-  refAnimes.on("value", ObtenerNombreImagen);
-  var imagenRef = storageRef.child("imagenes/" + Nombre_de_la_Imagen);
-  imagenRef.delete().then(function() {
-    alert("Lo has EXTERMINADO");
-  }).catch(function(error) {
-    alert("Ups! No se ha borrado!");
-  });
-  refAnimes.remove();
-}
 
 function ObtenerNombreImagen(snapshot) {
   var datos = snapshot.val();
   console.log(datos);
   Nombre_de_la_Imagen = datos.nombreImagen;
-}
-
-function editarAnime(event) {
-  var clave = this.getAttribute("data-indentificador");
-  refAnimesAEditar = firebase.database().ref().child("Animes").child(clave);
-  refAnimesAEditar.once("value", function(snapshot){
-    var datos = snapshot.val();
-    var formulario = document.getElementById("formulario");
-    formulario.anime.value = datos.Anime;
-    formulario.autor.value = datos.Autor;
-    formulario.description.value = datos.Descripcion;
-    formulario.email.value = datos.Email;
-    formulario.fecha.value = datos.Fecha;
-    formulario.genero.value = datos.Genero;
-    formulario.radio.value = datos.Recomendado;
-    modo = EDITAR;
-    var btnEnviar = document.getElementById("enviar");
-    btnEnviar.innerHTML = "Editar";
-  });
 }
 
 function enviarAnime(event) {
@@ -187,8 +156,7 @@ function mostrarDatos(snapshot) {
   var tableBody = document.getElementById("tabla");
   var todosLosAnimes = "";
   for (var key in datos){
-    todosLosAnimes += '<tr><td> <img class="borrar" src="img/borrar.png" alt="borrar" data-indentificador="' + key + '"/>'+
-    '<img class="editar" src="img/editar.png" alt="editar" data-indentificador="' + key + '"/>' + "</td><td>" + '<img width="150" class="img-thumbnail" src="' + datos[key].Portada  + '"/>' + "</td><td>" + datos[key].Anime + "</td><td>" + datos[key].Autor + "</td><td>" + datos[key].Descripcion +
+    todosLosAnimes += '<tr><td>' + '<img width="150" class="img-thumbnail" src="' + datos[key].Portada  + '"/>' + "</td><td>" + datos[key].Anime + "</td><td>" + datos[key].Autor + "</td><td>" + datos[key].Descripcion +
     "</td><td>" + datos[key].Email + "</td><td>" + datos[key].Fecha + "</td><td>" + datos[key].Genero + "</td><td>" + datos[key].Recomendado + "</td></tr>";
   }
   document.getElementById("tabla").innerHTML = todosLosAnimes;

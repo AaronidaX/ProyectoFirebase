@@ -82,6 +82,14 @@ body {
     padding: 40px;
 }
 
+#logout {
+  display: none;
+}
+
+#btn-admin, #btn-user {
+  display:none;
+}
+
 .tz-gallery .lightbox img {
     width: 100%;
     margin-bottom: 30px;
