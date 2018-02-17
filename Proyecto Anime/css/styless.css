@@ -199,6 +199,14 @@ body {
   color: red;
 }
 
+#rss{
+  width: 4em;
+  height: 4em;
+  position: fixed;
+  bottom: 0;
+  left : 0;
+}
+
 .nada {
   background-color: transparent;
 }
