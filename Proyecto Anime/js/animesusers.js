@@ -20,6 +20,7 @@ function inicializar() {
   imagen.addEventListener("change", subirImagen);
   storageRef = firebase.storage().ref();
   imagenesRef = firebase.database().ref().child("Imagenes");
+  document.getElementById("formulario").style.display = "none";
 
 
   mostrarAnimes();
