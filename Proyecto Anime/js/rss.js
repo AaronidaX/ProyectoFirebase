@@ -37,8 +37,6 @@ function mostrarAnimes(snapshot) {
   documentoRSS += '</channel>';
   documentoRSS += '</rss>';
 
-  console.log(documentoRSS);
-
   window.open('data:text/xml,' + encodeURIComponent(documentoRSS),
   "Test", "width=300,height=300,scrollbars=1,resizable=1");
 }
