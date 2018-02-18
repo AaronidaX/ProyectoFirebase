@@ -32,12 +32,12 @@ body {
 }
 
 .form-login {
-  background-image: url("../img/bgb.jpg");
+  background-image: url("../img/fondooscuro.jpg");
   padding-top: 10px;
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  border-radius: 15px 15px 1px 1px;
+  border-radius: 15px 15px 15px 15px;
   border-color: white;
   box-shadow:0 1px 0 #cfcfcf;
   margin-top: 50px;
