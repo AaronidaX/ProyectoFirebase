@@ -15,6 +15,10 @@ body {
  margin-top: 10px;
 }
 
+.espacio2 {
+ margin-top: 20px;
+}
+
 .blanco {
   color: #e6e6e6;
 }
@@ -25,6 +29,27 @@ body {
 
 .texto {
   background-image: url("../img/bgb.jpg");
+}
+
+.form-login {
+  background-image: url("../img/bgb.jpg");
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 15px 15px 1px 1px;
+  border-color: white;
+  box-shadow:0 1px 0 #cfcfcf;
+  margin-top: 50px;
+  border-style: solid;
+  border-width: 5px;
+  border-bottom: 0px;
+}
+
+.botones {
+  margin-top: 10px;
+  display: block;
+  margin: 0 auto;
 }
 
 .col-center{
@@ -52,6 +77,14 @@ body {
     padding: 20px 80px;
     margin: 10px 0;
     font-size: 15px;
+    text-shadow: 1px 1px 0 white, -1px -1px white, 1px -1px white, -1px 1px white, 0 1px white, 1px 0 white, -1px 0 white, 0 -1px white, 5px 5px 6px #aaa;
+}
+
+.bordito4 {
+    color: black;
+    padding: 20px 80px;
+    margin: 10px 0;
+    font-size: 25px;
     text-shadow: 1px 1px 0 white, -1px -1px white, 1px -1px white, -1px 1px white, 0 1px white, 1px 0 white, -1px 0 white, 0 -1px white, 5px 5px 6px #aaa;
 }
 

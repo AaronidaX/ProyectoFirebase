@@ -39,10 +39,10 @@ function subirImagen(snapshot) {
       var barraProgreso = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       document.getElementById("barra-de-progreso").style.width = barraProgreso + "%";
     }, function(error) {
-      alert("Ha habido un error en el proceso");
+      document.getElementById("imagenACambiar").src = "img/cross.png";
     }, function() {
       //Si se sube con exito
-      alert("Se ha subido con exito")
+      document.getElementById("imagenACambiar").src = "img/tick.png";
       var downloadURL = uploadTask.snapshot.downloadURL;
       url = downloadURL;
       document.getElementById("progreso").className = "hidden";
@@ -157,7 +157,7 @@ function mostrarDatos(snapshot) {
   var tableBody = document.getElementById("tabla");
   var todosLosAnimes = "";
   for (var key in datos){
-    todosLosAnimes += '<tr><td>' + '<img width="150" class="img-thumbnail" src="' + datos[key].Portada  + '"/>' + "</td><td>" + datos[key].Anime + "</td><td>" + datos[key].Autor + "</td><td>" + datos[key].Descripcion +
+    todosLosAnimes += '<tr><td>' + '<img width="200" class="esquinas" src="' + datos[key].Portada  + '"/>' + "</td><td>" + datos[key].Anime + "</td><td>" + datos[key].Autor + "</td><td>" + datos[key].Descripcion +
     "</td><td>" + datos[key].Email + "</td><td>" + datos[key].Fecha + "</td><td>" + datos[key].Genero + "</td><td>" + datos[key].Recomendado + "</td></tr>";
   }
   document.getElementById("tabla").innerHTML = todosLosAnimes;

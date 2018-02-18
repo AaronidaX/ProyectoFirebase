@@ -32,18 +32,20 @@ function checkLogInStatus() {
       if (usuarioID == 'HfPRY3KNfEbYVnURHXlAiKq2cXf1') {
         document.getElementById("btn-admin").style.display = "block";
         document.getElementById("btn-user").style.display = "block";
+        document.getElementById("texto").style.display = "none";
       } else {
         document.getElementById("btn-user").style.display = "block";
         document.getElementById("btn-admin").style.display = "none";
+        document.getElementById("texto").style.display = "none";
       }
 
-      document.getElementById("login-status").innerHTML = user.email + " is signed in";
       document.getElementById("form-login").style.display = "none";
       document.getElementById("logout").style.display = "block";
+      document.getElementById("texto").style.display = "none";
 
     } else {
       // No user is signed in.
-      document.getElementById("login-status").innerHTML = "No user is signed in";
+      document.getElementById("texto").style.display = "block";
       document.getElementById("form-login").style.display = "block";
       document.getElementById("logout").style.display = "none";
       document.getElementById("btn-user").style.display = "none";
