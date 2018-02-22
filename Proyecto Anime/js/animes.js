@@ -20,9 +20,35 @@ function inicializar() {
   imagen.addEventListener("change", subirImagen);
   storageRef = firebase.storage().ref();
   imagenesRef = firebase.database().ref().child("Imagenes");
+  refRSS = firebase.database().ref().child("rssanimes");
 
-
+  checkLogInStatus();
   mostrarAnimes();
+}
+
+function checkLogInStatus() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      console.log(user);
+
+      var usuarioID = firebase.auth().currentUser.uid;
+
+      console.log(usuarioID);
+      if (usuarioID == 'HfPRY3KNfEbYVnURHXlAiKq2cXf1') {
+      } else {
+        accesoRestringido();
+      }
+
+    } else {
+      // No user is signed in.
+      accesoRestringido();
+    }
+  });
+}
+
+function accesoRestringido() {
+  window.location="autentificaciones.html";
 }
 
 function subirImagen(snapshot) {
@@ -51,12 +77,14 @@ function subirImagen(snapshot) {
 function borrarAnime(event) {
   var clave = this.getAttribute("data-indentificador");
   var refAnimes = firebase.database().ref().child("Animes").child(clave);
+  var refRSS = firebase.database().ref().child("rssanimes").child(clave);
   refAnimes.on("value", ObtenerNombreImagen);
   var imagenRef = storageRef.child("imagenes/" + Nombre_de_la_Imagen);
   imagenRef.delete().then(function() {
   }).catch(function(error) {
   });
   refAnimes.remove();
+  refRSS.remove();
 }
 
 function ObtenerNombreImagen(snapshot) {
@@ -68,6 +96,7 @@ function ObtenerNombreImagen(snapshot) {
 function editarAnime(event) {
   var clave = this.getAttribute("data-indentificador");
   refAnimesAEditar = firebase.database().ref().child("Animes").child(clave);
+  refRSSAEditar = firebase.database().ref().child("rssanimes").child(clave);
   refAnimesAEditar.once("value", function(snapshot){
     var datos = snapshot.val();
     var formulario = document.getElementById("formulario");
@@ -157,7 +186,12 @@ function enviarAnime(event) {
           Genero: formulario.genero.value,
           Recomendado: formulario.radio.value
         }
-      );
+      )
+      refRSS.push({
+        descripcion: formulario.description.value,
+        titulo: formulario.anime.value,
+        url: url
+      });
     } else {
       refAnimesAEditar.update({
         nombreImagen: nombreImagen,
@@ -169,6 +203,11 @@ function enviarAnime(event) {
         Fecha: formulario.fecha.value,
         Genero: formulario.genero.value,
         Recomendado: formulario.radio.value
+      })
+      refRSSAEditar.update({
+        descripcion: formulario.description.value,
+        titulo: formulario.anime.value,
+        url: url
       });
       modo = AGREGAR;
     }

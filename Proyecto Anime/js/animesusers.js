@@ -22,8 +22,33 @@ function inicializar() {
   imagenesRef = firebase.database().ref().child("Imagenes");
   document.getElementById("formulario").style.display = "none";
 
-
+  checkLogInStatus();
   mostrarAnimes();
+}
+
+function checkLogInStatus() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      console.log(user);
+
+      var usuarioID = firebase.auth().currentUser.uid;
+
+      console.log(usuarioID);
+      if (usuarioID == 'HfPRY3KNfEbYVnURHXlAiKq2cXf1') {
+      } else {
+        
+      }
+
+    } else {
+      // No user is signed in.
+      accesoRestringido();
+    }
+  });
+}
+
+function accesoRestringido() {
+  window.location="autentificaciones.html";
 }
 
 function subirImagen(snapshot) {
